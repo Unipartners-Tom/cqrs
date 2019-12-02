@@ -6,7 +6,6 @@ import be.unipartners.escqrs.cqrsquiz.queries.HowManyPlayersRegisteredQuery;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class RegisteredPlayersProjection implements Projection {
 
@@ -21,13 +20,11 @@ public class RegisteredPlayersProjection implements Projection {
 
     public void stream(Collection<Event> events) {
         if (events != null) {
-            List<PlayerHasRegisteredEvent> collectedEvents = new ArrayList<>();
             for (Event e : events) {
                 if (e instanceof PlayerHasRegisteredEvent) {
-                    collectedEvents.add((PlayerHasRegisteredEvent) e);
+                    inMemoryEventStore.add((PlayerHasRegisteredEvent) e);
                 }
             }
-            inMemoryEventStore.addAll(collectedEvents);
         }
     }
 }
