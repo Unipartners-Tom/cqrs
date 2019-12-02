@@ -1,4 +1,4 @@
 package be.unipartners.escqrs.cqrsquiz.events;
 
-public class QuestionAddedtoQuizEvent {
+public class QuestionAddedtoQuizEvent extends Event {
 }

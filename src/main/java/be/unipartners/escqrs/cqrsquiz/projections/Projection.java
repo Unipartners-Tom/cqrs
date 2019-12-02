@@ -1,5 +1,7 @@
 package be.unipartners.escqrs.cqrsquiz.projections;
 
-public interface Projection {
+import be.unipartners.escqrs.cqrsquiz.queries.QueryObject;
 
+public interface Projection {
+    Answer query(QueryObject query);
 }

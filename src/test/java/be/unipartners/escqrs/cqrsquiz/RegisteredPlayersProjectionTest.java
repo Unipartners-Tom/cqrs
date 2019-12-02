@@ -22,7 +22,7 @@ public class RegisteredPlayersProjectionTest {
 
         HowManyPlayersRegisteredQuery query = new HowManyPlayersRegisteredQuery();
 
-        Assert.isTrue(projection.query(query) == 0);
+        Assert.isTrue(projection.query(query).getAnswer() == 0);
     }
 
     @Test
@@ -33,7 +33,7 @@ public class RegisteredPlayersProjectionTest {
 
         HowManyPlayersRegisteredQuery query = new HowManyPlayersRegisteredQuery();
 
-        Assert.isTrue(projection.query(query) == 1);
+        Assert.isTrue(projection.query(query).getAnswer() == 1);
     }
 
     @Test
@@ -48,11 +48,11 @@ public class RegisteredPlayersProjectionTest {
 
         HowManyPlayersRegisteredQuery query = new HowManyPlayersRegisteredQuery();
 
-        Assert.isTrue(projection.query(query) == 3);
+        Assert.isTrue(projection.query(query).getAnswer() == 3);
 
         projection.stream(Collections.singletonList(new PlayerHasRegisteredEvent()));
 
-        Assert.isTrue(projection.query(query) == 4);
+        Assert.isTrue(projection.query(query).getAnswer() == 4);
     }
 
     @Test
@@ -67,10 +67,10 @@ public class RegisteredPlayersProjectionTest {
 
         HowManyPlayersRegisteredQuery query = new HowManyPlayersRegisteredQuery();
 
-        Assert.isTrue(projection.query(query) == 2);
+        Assert.isTrue(projection.query(query).getAnswer() == 2);
 
         projection.stream(Collections.singletonList(new QuizWasCreatedEvent()));
 
-        Assert.isTrue(projection.query(query) == 2);
+        Assert.isTrue(projection.query(query).getAnswer() == 2);
     }
 }
