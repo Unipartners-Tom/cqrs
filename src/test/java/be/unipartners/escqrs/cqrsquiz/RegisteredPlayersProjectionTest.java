@@ -1,7 +1,7 @@
 package be.unipartners.escqrs.cqrsquiz;
 
 import be.unipartners.escqrs.cqrsquiz.events.Event;
-import be.unipartners.escqrs.cqrsquiz.events.PlayerRegisteredEvent;
+import be.unipartners.escqrs.cqrsquiz.events.PlayerHasRegisteredEvent;
 import be.unipartners.escqrs.cqrsquiz.events.QuizWasCreatedEvent;
 import be.unipartners.escqrs.cqrsquiz.projections.RegisteredPlayersProjection;
 import be.unipartners.escqrs.cqrsquiz.queries.HowManyPlayersRegisteredQuery;
@@ -29,7 +29,7 @@ public class RegisteredPlayersProjectionTest {
     void test_basicProjectionWithEvent() {
         RegisteredPlayersProjection projection = new RegisteredPlayersProjection();
 
-        projection.stream(Collections.singletonList(new PlayerRegisteredEvent()));
+        projection.stream(Collections.singletonList(new PlayerHasRegisteredEvent()));
 
         HowManyPlayersRegisteredQuery query = new HowManyPlayersRegisteredQuery();
 
@@ -41,16 +41,16 @@ public class RegisteredPlayersProjectionTest {
         RegisteredPlayersProjection projection = new RegisteredPlayersProjection();
 
         List<Event> events = new ArrayList<>();
-        events.add(new PlayerRegisteredEvent());
-        events.add(new PlayerRegisteredEvent());
-        events.add(new PlayerRegisteredEvent());
+        events.add(new PlayerHasRegisteredEvent());
+        events.add(new PlayerHasRegisteredEvent());
+        events.add(new PlayerHasRegisteredEvent());
         projection.stream(events);
 
         HowManyPlayersRegisteredQuery query = new HowManyPlayersRegisteredQuery();
 
         Assert.isTrue(projection.query(query) == 3);
 
-        projection.stream(Collections.singletonList(new PlayerRegisteredEvent()));
+        projection.stream(Collections.singletonList(new PlayerHasRegisteredEvent()));
 
         Assert.isTrue(projection.query(query) == 4);
     }
@@ -60,9 +60,9 @@ public class RegisteredPlayersProjectionTest {
         RegisteredPlayersProjection projection = new RegisteredPlayersProjection();
 
         List<Event> events = new ArrayList<>();
-        events.add(new PlayerRegisteredEvent());
+        events.add(new PlayerHasRegisteredEvent());
         events.add(new QuizWasCreatedEvent());
-        events.add(new PlayerRegisteredEvent());
+        events.add(new PlayerHasRegisteredEvent());
         projection.stream(events);
 
         HowManyPlayersRegisteredQuery query = new HowManyPlayersRegisteredQuery();
