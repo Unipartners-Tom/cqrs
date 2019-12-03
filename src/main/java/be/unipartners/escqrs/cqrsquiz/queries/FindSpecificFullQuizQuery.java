@@ -1,14 +1,16 @@
 package be.unipartners.escqrs.cqrsquiz.queries;
 
+import java.util.UUID;
+
 public class FindSpecificFullQuizQuery extends QueryObject {
 
-    private final String quizName;
+    private final UUID quizId;
 
-    public FindSpecificFullQuizQuery(String quizName) {
-        this.quizName = quizName;
+    public FindSpecificFullQuizQuery(UUID quizId) {
+        this.quizId = quizId;
     }
 
-    public String getQuizName() {
-        return quizName;
+    public UUID getQuizId() {
+        return quizId;
     }
 }

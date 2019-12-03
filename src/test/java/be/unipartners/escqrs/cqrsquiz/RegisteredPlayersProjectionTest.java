@@ -61,7 +61,7 @@ public class RegisteredPlayersProjectionTest {
 
         List<Event> events = new ArrayList<>();
         events.add(new PlayerHasRegisteredEvent());
-        events.add(new QuizWasCreatedEvent());
+        events.add(new QuizWasCreatedEvent(null, "", ""));
         events.add(new PlayerHasRegisteredEvent());
         projection.stream(events);
 
@@ -69,7 +69,7 @@ public class RegisteredPlayersProjectionTest {
 
         Assert.isTrue(projection.query(query).getAnswer() == 2);
 
-        projection.stream(Collections.singletonList(new QuizWasCreatedEvent()));
+        projection.stream(Collections.singletonList(new QuizWasCreatedEvent(null, "", "")));
 
         Assert.isTrue(projection.query(query).getAnswer() == 2);
     }
