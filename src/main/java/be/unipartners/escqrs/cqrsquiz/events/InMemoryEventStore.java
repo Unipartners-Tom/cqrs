@@ -19,7 +19,8 @@ public class InMemoryEventStore implements EventStore {
     }
 
     public void trigger() {
-        for (Event registeredEvent : registeredEvents) {
+        List<Event> currentRegisteredEvents = new ArrayList<>(registeredEvents);
+        for (Event registeredEvent : currentRegisteredEvents) {
             for (Subscriber subscriber : subscribers) {
                 subscriber.call(registeredEvent);
             }

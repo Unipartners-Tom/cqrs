@@ -4,7 +4,10 @@ import be.unipartners.escqrs.cqrsquiz.events.*;
 import be.unipartners.escqrs.cqrsquiz.queries.FindSpecificFullQuizQuery;
 import be.unipartners.escqrs.cqrsquiz.queries.QueryObject;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class FullQuizProjection implements Projection, Subscriber {
 
@@ -32,8 +35,8 @@ public class FullQuizProjection implements Projection, Subscriber {
     @Override
     public void call(Event event) {
         if (event instanceof QuizWasCreatedEvent) {
-            if(!unpublishedQuizzesMap.containsKey(((QuizWasCreatedEvent) event).getQuizId())
-                    && !publishedQuizzesMap.containsKey(((QuizWasCreatedEvent) event).getQuizId())){
+            if (!unpublishedQuizzesMap.containsKey(((QuizWasCreatedEvent) event).getQuizId())
+                    && !publishedQuizzesMap.containsKey(((QuizWasCreatedEvent) event).getQuizId())) {
                 FullQuiz newFullQuiz = new FullQuiz(
                         ((QuizWasCreatedEvent) event).getQuizId(),
                         ((QuizWasCreatedEvent) event).getQuizName(),
@@ -52,6 +55,8 @@ public class FullQuizProjection implements Projection, Subscriber {
                 publishedQuizzesMap.put(((QuizWasPublishedEvent) event).getQuizId(), quiz);
                 unpublishedQuizzesMap.remove(((QuizWasPublishedEvent) event).getQuizId());
             }
+        } else if (event instanceof QuizWasCancelledEvent) {
+            unpublishedQuizzesMap.remove(((QuizWasCancelledEvent) event).getQuizId());
         }
     }
 }
