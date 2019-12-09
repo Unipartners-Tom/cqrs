@@ -1,6 +1,6 @@
 package be.unipartners.escqrs;
 
-import be.unipartners.escqrs.cqrsquiz.events.InMemEventStore;
+import be.unipartners.escqrs.cqrsquiz.events.InMemoryEventStore;
 import be.unipartners.escqrs.cqrsquiz.events.InMemoryEventStoreImpl;
 import be.unipartners.escqrs.cqrsquiz.events.QuizWasCreatedEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +20,10 @@ public class EscqrsApplication implements CommandLineRunner {
     private String loggedInUser = "LOGGED_IN_USER";
 
     @Autowired
-    private InMemEventStore eventStore;
+    private InMemoryEventStore eventStore;
 
     @Bean
-    public InMemEventStore getInMemEventStore() {
+    public InMemoryEventStore getInMemEventStore() {
         return new InMemoryEventStoreImpl();
     }
 

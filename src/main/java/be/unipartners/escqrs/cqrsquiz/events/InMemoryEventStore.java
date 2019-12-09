@@ -2,7 +2,7 @@ package be.unipartners.escqrs.cqrsquiz.events;
 
 import java.util.Collection;
 
-public interface InMemEventStore extends EventStore {
+public interface InMemoryEventStore extends EventStore {
 
     public void append(Event event);
 

@@ -3,7 +3,7 @@ package be.unipartners.escqrs.cqrsquiz.events;
 import java.util.*;
 
 // normally this should keep track of past event, but for testing purposes, we just throw them away :-)
-public class InMemoryEventStoreImpl implements InMemEventStore {
+public class InMemoryEventStoreImpl implements InMemoryEventStore {
 
     private final Set<Subscriber> subscribers = new HashSet<>();
 
