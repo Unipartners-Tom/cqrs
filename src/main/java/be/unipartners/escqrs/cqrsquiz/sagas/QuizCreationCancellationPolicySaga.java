@@ -3,7 +3,6 @@ package be.unipartners.escqrs.cqrsquiz.sagas;
 import be.unipartners.escqrs.cqrsquiz.events.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -31,7 +30,7 @@ public class QuizCreationCancellationPolicySaga implements Subscriber {
                     commandHandler.execute(cancelCommand);
                 }
             }
-        } else if(event instanceof QuizWasPublishedEvent) {
+        } else if (event instanceof QuizWasPublishedEvent) {
             inMemoryPlaceholder.remove(((QuizWasPublishedEvent) event).getQuizId());
         }
     }

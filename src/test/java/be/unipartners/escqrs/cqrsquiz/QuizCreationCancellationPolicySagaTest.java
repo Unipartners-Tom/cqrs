@@ -24,14 +24,14 @@ import java.util.UUID;
 public class QuizCreationCancellationPolicySagaTest {
 
     private InMemoryEventStore eventStore;
-    private QuizCreationCancellationPolicySaga saga;
+    private QuizCreationCancellationPolicySaga quizCreationCancellationPolicySaga;
 
     @BeforeEach
     void setUp() {
         eventStore = new InMemoryEventStore();
         CommandHandler mockCommandHandler = new CancelQuizCommandHandlerMock(eventStore);
-        saga = new QuizCreationCancellationPolicySaga(mockCommandHandler);
-        eventStore.subscribe(saga);
+        quizCreationCancellationPolicySaga = new QuizCreationCancellationPolicySaga(mockCommandHandler);
+        eventStore.subscribe(quizCreationCancellationPolicySaga);
     }
 
     @Test

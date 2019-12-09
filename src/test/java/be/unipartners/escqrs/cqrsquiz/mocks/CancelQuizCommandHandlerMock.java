@@ -8,8 +8,13 @@ import be.unipartners.escqrs.cqrsquiz.sagas.Command;
 import be.unipartners.escqrs.cqrsquiz.sagas.CommandHandler;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public class CancelQuizCommandHandlerMock implements CommandHandler {
+
+    private final Set<UUID> alreadyProcessed = new HashSet<>();
 
     private final InMemoryEventStore eventStore;
 
@@ -20,8 +25,14 @@ public class CancelQuizCommandHandlerMock implements CommandHandler {
     @Override
     public void execute(Command command) {
         if (command instanceof CancelQuizCommand) {
-            Event cancelEvent = new QuizWasCancelledEvent(((CancelQuizCommand) command).getQuizId());
-            eventStore.append(Collections.singletonList(cancelEvent));
+            QuizWasCancelledEvent cancelEvent = new QuizWasCancelledEvent(((CancelQuizCommand) command).getQuizId());
+            if(!alreadyProcessed.contains(cancelEvent.getQuizId())) {
+                alreadyProcessed.add(cancelEvent.getQuizId());
+                eventStore.append(Collections.singletonList(cancelEvent));
+                eventStore.trigger();
+            } else {
+                System.out.println("Mja " + cancelEvent.getQuizId());
+            }
         }
     }
 }
