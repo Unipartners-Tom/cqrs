@@ -1,7 +1,6 @@
 package be.unipartners.escqrs.cqrsquiz.mocks;
 
-import be.unipartners.escqrs.cqrsquiz.events.Event;
-import be.unipartners.escqrs.cqrsquiz.events.InMemoryEventStore;
+import be.unipartners.escqrs.cqrsquiz.events.InMemoryEventStoreImpl;
 import be.unipartners.escqrs.cqrsquiz.events.QuizWasCancelledEvent;
 import be.unipartners.escqrs.cqrsquiz.sagas.CancelQuizCommand;
 import be.unipartners.escqrs.cqrsquiz.sagas.Command;
@@ -16,9 +15,9 @@ public class CancelQuizCommandHandlerMock implements CommandHandler {
 
     private final Set<UUID> alreadyProcessed = new HashSet<>();
 
-    private final InMemoryEventStore eventStore;
+    private final InMemoryEventStoreImpl eventStore;
 
-    public CancelQuizCommandHandlerMock(InMemoryEventStore eventStore) {
+    public CancelQuizCommandHandlerMock(InMemoryEventStoreImpl eventStore) {
         this.eventStore = eventStore;
     }
 

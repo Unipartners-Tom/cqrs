@@ -3,7 +3,7 @@ package be.unipartners.escqrs.cqrsquiz.events;
 import java.util.*;
 
 // normally this should keep track of past event, but for testing purposes, we just throw them away :-)
-public class InMemoryEventStore implements EventStore {
+public class InMemoryEventStoreImpl implements InMemEventStore {
 
     private final Set<Subscriber> subscribers = new HashSet<>();
 
@@ -14,10 +14,19 @@ public class InMemoryEventStore implements EventStore {
         subscribers.add(subscriber);
     }
 
+    @Override
+    public void append(Event event) {
+        if(event!=null) {
+            append(Collections.singletonList(event));
+        }
+    }
+
+    @Override
     public void append(Collection<Event> events) {
         registeredEvents.addAll(events);
     }
 
+    @Override
     public void trigger() {
         List<Event> currentRegisteredEvents = new ArrayList<>(registeredEvents);
         for (Event registeredEvent : currentRegisteredEvents) {

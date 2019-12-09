@@ -1,6 +1,6 @@
 package be.unipartners.escqrs.cqrsquiz;
 
-import be.unipartners.escqrs.cqrsquiz.events.InMemoryEventStore;
+import be.unipartners.escqrs.cqrsquiz.events.InMemoryEventStoreImpl;
 import be.unipartners.escqrs.cqrsquiz.events.QuizWasCreatedEvent;
 import be.unipartners.escqrs.cqrsquiz.events.QuizWasPublishedEvent;
 import be.unipartners.escqrs.cqrsquiz.projections.Answer;
@@ -20,7 +20,7 @@ public class EventStoreTest {
 
     @Test
     void test_basic() {
-        InMemoryEventStore eventStore = new InMemoryEventStore();
+        InMemoryEventStoreImpl eventStore = new InMemoryEventStoreImpl();
 
         FullQuizProjection fullQuizProjection = new FullQuizProjection();
         RegisteredPlayersProjection registeredPlayersProjection = new RegisteredPlayersProjection();

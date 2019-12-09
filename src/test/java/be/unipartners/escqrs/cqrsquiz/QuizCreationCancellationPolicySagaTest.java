@@ -1,7 +1,7 @@
 package be.unipartners.escqrs.cqrsquiz;
 
 import be.unipartners.escqrs.cqrsquiz.events.DayWasPassedEvent;
-import be.unipartners.escqrs.cqrsquiz.events.InMemoryEventStore;
+import be.unipartners.escqrs.cqrsquiz.events.InMemoryEventStoreImpl;
 import be.unipartners.escqrs.cqrsquiz.events.QuizWasCreatedEvent;
 import be.unipartners.escqrs.cqrsquiz.events.QuizWasPublishedEvent;
 import be.unipartners.escqrs.cqrsquiz.mocks.CancelQuizCommandHandlerMock;
@@ -23,12 +23,12 @@ import java.util.UUID;
 @SpringBootTest
 public class QuizCreationCancellationPolicySagaTest {
 
-    private InMemoryEventStore eventStore;
+    private InMemoryEventStoreImpl eventStore;
     private QuizCreationCancellationPolicySaga quizCreationCancellationPolicySaga;
 
     @BeforeEach
     void setUp() {
-        eventStore = new InMemoryEventStore();
+        eventStore = new InMemoryEventStoreImpl();
         CommandHandler mockCommandHandler = new CancelQuizCommandHandlerMock(eventStore);
         quizCreationCancellationPolicySaga = new QuizCreationCancellationPolicySaga(mockCommandHandler);
         eventStore.subscribe(quizCreationCancellationPolicySaga);

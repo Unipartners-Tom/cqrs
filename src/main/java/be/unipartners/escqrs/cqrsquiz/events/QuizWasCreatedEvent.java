@@ -8,6 +8,10 @@ public class QuizWasCreatedEvent extends Event {
     private final String quizName;
     private final String ownerName;
 
+    public QuizWasCreatedEvent(String quizName, String ownerName) {
+        this(UUID.randomUUID(), quizName, ownerName);
+    }
+
     public QuizWasCreatedEvent(UUID quizId, String quizName, String ownerName) {
         this.quizId = quizId;
         this.quizName = quizName;
