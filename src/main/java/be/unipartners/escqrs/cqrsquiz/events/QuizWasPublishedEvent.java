@@ -13,4 +13,11 @@ public class QuizWasPublishedEvent extends Event {
     public UUID getQuizId() {
         return quizId;
     }
+
+    @Override
+    public String toString() {
+        return "QuizWasPublishedEvent{" +
+                "quizId=" + quizId +
+                '}';
+    }
 }

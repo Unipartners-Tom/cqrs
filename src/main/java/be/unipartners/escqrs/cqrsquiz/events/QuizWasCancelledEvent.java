@@ -14,4 +14,10 @@ public class QuizWasCancelledEvent extends Event {
         return quizId;
     }
 
+    @Override
+    public String toString() {
+        return "QuizWasCancelledEvent{" +
+                "quizId=" + quizId +
+                '}';
+    }
 }

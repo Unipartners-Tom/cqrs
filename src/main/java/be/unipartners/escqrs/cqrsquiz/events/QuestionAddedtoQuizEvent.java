@@ -25,4 +25,13 @@ public class QuestionAddedtoQuizEvent extends Event {
     public String getAnswer() {
         return answer;
     }
+
+    @Override
+    public String toString() {
+        return "QuestionAddedtoQuizEvent{" +
+                "targetQuizId=" + targetQuizId +
+                ", question='" + question + '\'' +
+                ", answer='" + answer + '\'' +
+                '}';
+    }
 }

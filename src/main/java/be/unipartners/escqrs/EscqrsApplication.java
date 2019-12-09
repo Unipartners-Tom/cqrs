@@ -1,8 +1,6 @@
 package be.unipartners.escqrs;
 
-import be.unipartners.escqrs.cqrsquiz.events.InMemoryEventStore;
-import be.unipartners.escqrs.cqrsquiz.events.InMemoryEventStoreImpl;
-import be.unipartners.escqrs.cqrsquiz.events.QuizWasCreatedEvent;
+import be.unipartners.escqrs.cqrsquiz.events.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,6 +11,7 @@ import org.springframework.util.StringUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.UUID;
 
 @SpringBootApplication
 public class EscqrsApplication implements CommandLineRunner {
@@ -26,6 +25,15 @@ public class EscqrsApplication implements CommandLineRunner {
     public InMemoryEventStore getInMemEventStore() {
         return new InMemoryEventStoreImpl();
     }
+
+    @Bean
+    public Subscriber getDebugSubscriber() {
+        Subscriber debugSubscriber =  new DebugSubscriber();
+        eventStore.subscribe(debugSubscriber);
+        return debugSubscriber;
+    }
+
+
 
     public static void main(String[] args) {
         SpringApplication.run(EscqrsApplication.class, args);
@@ -50,9 +58,27 @@ public class EscqrsApplication implements CommandLineRunner {
                     if ("q".equalsIgnoreCase(input) || "quit".equalsIgnoreCase(input)) {
                         System.out.println("Exit!");
                         running = false;
+                    } else if ("trigger".equalsIgnoreCase(input) || "publish".equalsIgnoreCase(input)) {
+                        eventStore.trigger();
                     } else if (input.toLowerCase().startsWith("addquiz ")) {
                         String targetName = input.substring("addquiz ".length());
-                        eventStore.append(new QuizWasCreatedEvent(targetName, loggedInUser));
+                        UUID newUUID = UUID.randomUUID();
+                        System.out.println(">>> Creating quiz with id " + newUUID);
+                        eventStore.append(new QuizWasCreatedEvent(newUUID, targetName, loggedInUser));
+                    } else if (input.toLowerCase().startsWith("cancelquiz ")) {
+                        String targetuuid = input.substring("cancelquiz ".length());
+                        eventStore.append(new QuizWasCancelledEvent(UUID.fromString(targetuuid)));
+                    } else if (input.toLowerCase().startsWith("publishquiz ")) {
+                        String targetuuid = input.substring("publishquiz ".length());
+                        eventStore.append(new QuizWasPublishedEvent(UUID.fromString(targetuuid)));
+                    }  else if (input.toLowerCase().startsWith("addquestion ")) {
+                        String relevantInput = input.substring("addquestion ".length());
+                        String[] relevantInputParts = relevantInput.split(" ");
+                        if(relevantInputParts.length == 3) {
+                            eventStore.append(new QuestionAddedtoQuizEvent(UUID.fromString(relevantInputParts[0]), relevantInputParts[1], relevantInputParts[2]));
+                        }
+                    } else if (input.equalsIgnoreCase("nextday")) {
+                        eventStore.append(new DayWasPassedEvent());
                     }
                 }
 

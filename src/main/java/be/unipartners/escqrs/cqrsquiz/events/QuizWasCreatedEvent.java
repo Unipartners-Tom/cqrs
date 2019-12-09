@@ -29,4 +29,13 @@ public class QuizWasCreatedEvent extends Event {
     public String getOwnerName() {
         return ownerName;
     }
+
+    @Override
+    public String toString() {
+        return "QuizWasCreatedEvent{" +
+                "quizId=" + quizId +
+                ", quizName='" + quizName + '\'' +
+                ", ownerName='" + ownerName + '\'' +
+                '}';
+    }
 }
