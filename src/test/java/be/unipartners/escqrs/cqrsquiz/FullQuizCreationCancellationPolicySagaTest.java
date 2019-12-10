@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.UUID;
 
 @SpringBootTest
-public class QuizCreationCancellationPolicySagaTest {
+public class FullQuizCreationCancellationPolicySagaTest {
 
     private InMemoryEventStoreImpl eventStore;
     private QuizCreationCancellationPolicySaga quizCreationCancellationPolicySaga;

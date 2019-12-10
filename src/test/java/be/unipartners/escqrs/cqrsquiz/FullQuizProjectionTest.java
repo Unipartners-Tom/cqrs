@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.UUID;
 
 @SpringBootTest
-public class QuizProjectionTest {
+public class FullQuizProjectionTest {
 
     @Test
     void test_basicProjection() {
