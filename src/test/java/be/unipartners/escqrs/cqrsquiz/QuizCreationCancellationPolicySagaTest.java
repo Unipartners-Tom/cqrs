@@ -1,12 +1,12 @@
 package be.unipartners.escqrs.cqrsquiz;
 
-import be.unipartners.escqrs.cqrsquiz.events.DayWasPassedEvent;
+import be.unipartners.escqrs.cqrsquiz.domain.events.DayWasPassedEvent;
 import be.unipartners.escqrs.cqrsquiz.events.InMemoryEventStoreImpl;
-import be.unipartners.escqrs.cqrsquiz.events.QuizWasCreatedEvent;
-import be.unipartners.escqrs.cqrsquiz.events.QuizWasPublishedEvent;
+import be.unipartners.escqrs.cqrsquiz.domain.events.QuizWasCreatedEvent;
+import be.unipartners.escqrs.cqrsquiz.domain.events.QuizWasPublishedEvent;
 import be.unipartners.escqrs.cqrsquiz.mocks.CancelQuizCommandHandlerMock;
+import be.unipartners.escqrs.cqrsquiz.domain.Quiz;
 import be.unipartners.escqrs.cqrsquiz.projections.Answer;
-import be.unipartners.escqrs.cqrsquiz.projections.FullQuiz;
 import be.unipartners.escqrs.cqrsquiz.projections.FullQuizProjection;
 import be.unipartners.escqrs.cqrsquiz.queries.FindSpecificFullQuizQuery;
 import be.unipartners.escqrs.cqrsquiz.sagas.CommandHandler;
@@ -36,8 +36,8 @@ public class QuizCreationCancellationPolicySagaTest {
 
     @Test
     void test_basic() {
-        FullQuizProjection fullQuizProjection = new FullQuizProjection();
-        eventStore.subscribe(fullQuizProjection);
+        FullQuizProjection quizProjection = new FullQuizProjection();
+        eventStore.subscribe(quizProjection);
 
         UUID targetuuid = UUID.randomUUID();
         String targetName = "CQRS";
@@ -47,13 +47,13 @@ public class QuizCreationCancellationPolicySagaTest {
         DayWasPassedEvent dayWasPassedEvent1 = new DayWasPassedEvent();
         DayWasPassedEvent dayWasPassedEvent2 = new DayWasPassedEvent();
 
-        eventStore.append(Arrays.asList(quizWasCreatedEvent, dayWasPassedEvent1, dayWasPassedEvent2));
+        eventStore.appendToStream(targetuuid.toString(), Arrays.asList(quizWasCreatedEvent, dayWasPassedEvent1, dayWasPassedEvent2));
         eventStore.trigger();
         QuizWasPublishedEvent quizWasPublishedEvent = new QuizWasPublishedEvent(targetuuid);
-        eventStore.append(Collections.singletonList(quizWasPublishedEvent));
+        eventStore.appendToStream(targetuuid.toString(), Collections.singletonList(quizWasPublishedEvent));
         eventStore.trigger();
 
-        Answer<FullQuiz> theAnswer = fullQuizProjection.query(new FindSpecificFullQuizQuery(targetuuid));
+        Answer<Quiz> theAnswer = quizProjection.query(new FindSpecificFullQuizQuery(targetuuid));
         Assert.isTrue(theAnswer == null);
     }
 }

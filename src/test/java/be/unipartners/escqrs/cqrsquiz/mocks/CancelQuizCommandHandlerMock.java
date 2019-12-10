@@ -1,7 +1,7 @@
 package be.unipartners.escqrs.cqrsquiz.mocks;
 
 import be.unipartners.escqrs.cqrsquiz.events.InMemoryEventStoreImpl;
-import be.unipartners.escqrs.cqrsquiz.events.QuizWasCancelledEvent;
+import be.unipartners.escqrs.cqrsquiz.domain.events.QuizWasCancelledEvent;
 import be.unipartners.escqrs.cqrsquiz.sagas.CancelQuizCommand;
 import be.unipartners.escqrs.cqrsquiz.sagas.Command;
 import be.unipartners.escqrs.cqrsquiz.sagas.CommandHandler;
@@ -27,7 +27,7 @@ public class CancelQuizCommandHandlerMock implements CommandHandler {
             QuizWasCancelledEvent cancelEvent = new QuizWasCancelledEvent(((CancelQuizCommand) command).getQuizId());
             if(!alreadyProcessed.contains(cancelEvent.getQuizId())) {
                 alreadyProcessed.add(cancelEvent.getQuizId());
-                eventStore.append(Collections.singletonList(cancelEvent));
+                eventStore.appendToStream(cancelEvent.getQuizId().toString(), Collections.singletonList(cancelEvent));
                 eventStore.trigger();
             } else {
                 System.out.println("Mja " + cancelEvent.getQuizId());

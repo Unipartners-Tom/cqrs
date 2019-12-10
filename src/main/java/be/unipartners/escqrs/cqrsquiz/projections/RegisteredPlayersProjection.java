@@ -1,7 +1,7 @@
 package be.unipartners.escqrs.cqrsquiz.projections;
 
-import be.unipartners.escqrs.cqrsquiz.events.Event;
-import be.unipartners.escqrs.cqrsquiz.events.PlayerHasRegisteredEvent;
+import be.unipartners.escqrs.cqrsquiz.domain.events.Event;
+import be.unipartners.escqrs.cqrsquiz.domain.events.PlayerHasRegisteredEvent;
 import be.unipartners.escqrs.cqrsquiz.events.Subscriber;
 import be.unipartners.escqrs.cqrsquiz.queries.HowManyPlayersRegisteredQuery;
 import be.unipartners.escqrs.cqrsquiz.queries.QueryObject;

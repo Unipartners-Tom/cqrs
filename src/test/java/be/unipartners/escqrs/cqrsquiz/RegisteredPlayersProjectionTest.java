@@ -1,8 +1,8 @@
 package be.unipartners.escqrs.cqrsquiz;
 
-import be.unipartners.escqrs.cqrsquiz.events.Event;
-import be.unipartners.escqrs.cqrsquiz.events.PlayerHasRegisteredEvent;
-import be.unipartners.escqrs.cqrsquiz.events.QuizWasCreatedEvent;
+import be.unipartners.escqrs.cqrsquiz.domain.events.Event;
+import be.unipartners.escqrs.cqrsquiz.domain.events.PlayerHasRegisteredEvent;
+import be.unipartners.escqrs.cqrsquiz.domain.events.QuizWasCreatedEvent;
 import be.unipartners.escqrs.cqrsquiz.projections.RegisteredPlayersProjection;
 import be.unipartners.escqrs.cqrsquiz.queries.HowManyPlayersRegisteredQuery;
 import org.junit.jupiter.api.Test;

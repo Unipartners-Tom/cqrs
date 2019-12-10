@@ -1,6 +1,7 @@
 package be.unipartners.escqrs;
 
 import be.unipartners.escqrs.cqrsquiz.events.*;
+import be.unipartners.escqrs.cqrsquiz.sagas.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,6 +22,10 @@ public class EscqrsApplication implements CommandLineRunner {
     @Autowired
     private InMemoryEventStore eventStore;
 
+    @Autowired
+    private QuizUseCases quizUseCases;
+
+
     @Bean
     public InMemoryEventStore getInMemEventStore() {
         return new InMemoryEventStoreImpl();
@@ -31,6 +36,12 @@ public class EscqrsApplication implements CommandLineRunner {
         Subscriber debugSubscriber =  new DebugSubscriber();
         eventStore.subscribe(debugSubscriber);
         return debugSubscriber;
+    }
+
+    @Bean
+    public QuizUseCases getQuizUseCases() {
+        QuizUseCases quizUseCases = new QuizUseCases(eventStore);
+        return quizUseCases;
     }
 
 
@@ -64,21 +75,25 @@ public class EscqrsApplication implements CommandLineRunner {
                         String targetName = input.substring("addquiz ".length());
                         UUID newUUID = UUID.randomUUID();
                         System.out.println(">>> Creating quiz with id " + newUUID);
-                        eventStore.append(new QuizWasCreatedEvent(newUUID, targetName, loggedInUser));
+                        quizUseCases.execute(new CreateQuizCommand(newUUID, targetName, loggedInUser));
+                        // eventStore.append(new QuizWasCreatedEvent(newUUID, targetName, loggedInUser));
                     } else if (input.toLowerCase().startsWith("cancelquiz ")) {
                         String targetuuid = input.substring("cancelquiz ".length());
-                        eventStore.append(new QuizWasCancelledEvent(UUID.fromString(targetuuid)));
+                        quizUseCases.execute(new CancelQuizCommand(UUID.fromString(targetuuid)));
+                        // eventStore.append(new QuizWasCancelledEvent(UUID.fromString(targetuuid)));
                     } else if (input.toLowerCase().startsWith("publishquiz ")) {
                         String targetuuid = input.substring("publishquiz ".length());
-                        eventStore.append(new QuizWasPublishedEvent(UUID.fromString(targetuuid)));
+                        quizUseCases.execute(new PublishQuizCommand(UUID.fromString(targetuuid)));
+                        // eventStore.append(new QuizWasPublishedEvent(UUID.fromString(targetuuid)));
                     }  else if (input.toLowerCase().startsWith("addquestion ")) {
                         String relevantInput = input.substring("addquestion ".length());
                         String[] relevantInputParts = relevantInput.split(" ");
                         if(relevantInputParts.length == 3) {
-                            eventStore.append(new QuestionAddedtoQuizEvent(UUID.fromString(relevantInputParts[0]), relevantInputParts[1], relevantInputParts[2]));
+                            quizUseCases.execute(new AddQuestionToQuizCommand(UUID.fromString(relevantInputParts[0]), relevantInputParts[1], relevantInputParts[2]));
+                            // eventStore.append(new QuestionAddedtoQuizEvent(UUID.fromString(relevantInputParts[0]), relevantInputParts[1], relevantInputParts[2]));
                         }
                     } else if (input.equalsIgnoreCase("nextday")) {
-                        eventStore.append(new DayWasPassedEvent());
+                        // eventStore.append(new DayWasPassedEvent());
                     }
                 }
 

@@ -1,5 +1,6 @@
 package be.unipartners.escqrs.cqrsquiz.projections;
 
+import be.unipartners.escqrs.cqrsquiz.domain.events.*;
 import be.unipartners.escqrs.cqrsquiz.events.*;
 import be.unipartners.escqrs.cqrsquiz.queries.FindSpecificFullQuizQuery;
 import be.unipartners.escqrs.cqrsquiz.queries.QueryObject;

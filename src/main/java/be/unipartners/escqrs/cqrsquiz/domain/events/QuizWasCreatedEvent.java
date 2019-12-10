@@ -1,4 +1,4 @@
-package be.unipartners.escqrs.cqrsquiz.events;
+package be.unipartners.escqrs.cqrsquiz.domain.events;
 
 import java.util.UUID;
 

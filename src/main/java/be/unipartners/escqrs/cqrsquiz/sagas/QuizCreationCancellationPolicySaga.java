@@ -1,5 +1,9 @@
 package be.unipartners.escqrs.cqrsquiz.sagas;
 
+import be.unipartners.escqrs.cqrsquiz.domain.events.DayWasPassedEvent;
+import be.unipartners.escqrs.cqrsquiz.domain.events.Event;
+import be.unipartners.escqrs.cqrsquiz.domain.events.QuizWasCreatedEvent;
+import be.unipartners.escqrs.cqrsquiz.domain.events.QuizWasPublishedEvent;
 import be.unipartners.escqrs.cqrsquiz.events.*;
 
 import java.util.HashMap;

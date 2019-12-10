@@ -1,4 +1,4 @@
-package be.unipartners.escqrs.cqrsquiz.events;
+package be.unipartners.escqrs.cqrsquiz.domain.events;
 
 public class DayWasPassedEvent extends Event {
     @Override

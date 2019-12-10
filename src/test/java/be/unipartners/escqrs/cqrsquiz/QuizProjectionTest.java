@@ -1,7 +1,8 @@
 package be.unipartners.escqrs.cqrsquiz;
 
-import be.unipartners.escqrs.cqrsquiz.events.QuizWasCreatedEvent;
-import be.unipartners.escqrs.cqrsquiz.events.QuizWasPublishedEvent;
+import be.unipartners.escqrs.cqrsquiz.domain.Quiz;
+import be.unipartners.escqrs.cqrsquiz.domain.events.QuizWasCreatedEvent;
+import be.unipartners.escqrs.cqrsquiz.domain.events.QuizWasPublishedEvent;
 import be.unipartners.escqrs.cqrsquiz.projections.Answer;
 import be.unipartners.escqrs.cqrsquiz.projections.FullQuiz;
 import be.unipartners.escqrs.cqrsquiz.projections.FullQuizProjection;
@@ -15,7 +16,7 @@ import java.util.Collections;
 import java.util.UUID;
 
 @SpringBootTest
-public class FullQuizProjectionTest {
+public class QuizProjectionTest {
 
     @Test
     void test_basicProjection() {
@@ -39,7 +40,7 @@ public class FullQuizProjectionTest {
 
         FindSpecificFullQuizQuery query = new FindSpecificFullQuizQuery(targetuuid);
 
-        Answer<FullQuiz> theAnswer = projection.query(query);
+        Answer<Quiz> theAnswer = projection.query(query);
         Assert.isTrue(theAnswer == null);
     }
 
@@ -58,9 +59,9 @@ public class FullQuizProjectionTest {
 
         Answer<FullQuiz> theAnswer = projection.query(query);
         Assert.isTrue(theAnswer != null);
-        FullQuiz theFullQuiz = theAnswer.getAnswer();
-        Assert.isTrue(targetName.equals(theFullQuiz.getQuizNAme()));
-        Assert.isTrue(ownerName.equals(theFullQuiz.getOwnerName()));
+        FullQuiz theQuiz = theAnswer.getAnswer();
+        Assert.isTrue(targetName.equals(theQuiz.getQuizNAme()));
+        Assert.isTrue(ownerName.equals(theQuiz.getOwnerName()));
     }
 
 }
