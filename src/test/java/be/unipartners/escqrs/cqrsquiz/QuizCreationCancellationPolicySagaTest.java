@@ -9,7 +9,7 @@ import be.unipartners.escqrs.cqrsquiz.domain.Quiz;
 import be.unipartners.escqrs.cqrsquiz.projections.Answer;
 import be.unipartners.escqrs.cqrsquiz.projections.FullQuizProjection;
 import be.unipartners.escqrs.cqrsquiz.queries.FindSpecificFullQuizQuery;
-import be.unipartners.escqrs.cqrsquiz.sagas.CommandHandler;
+import be.unipartners.escqrs.cqrsquiz.commands.CommandHandler;
 import be.unipartners.escqrs.cqrsquiz.sagas.QuizCreationCancellationPolicySaga;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

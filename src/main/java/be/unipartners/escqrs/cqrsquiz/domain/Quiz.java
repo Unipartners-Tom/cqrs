@@ -1,10 +1,10 @@
 package be.unipartners.escqrs.cqrsquiz.domain;
 
 import be.unipartners.escqrs.cqrsquiz.domain.events.*;
-import be.unipartners.escqrs.cqrsquiz.sagas.AddQuestionToQuizCommand;
-import be.unipartners.escqrs.cqrsquiz.sagas.CancelQuizCommand;
-import be.unipartners.escqrs.cqrsquiz.sagas.CreateQuizCommand;
-import be.unipartners.escqrs.cqrsquiz.sagas.PublishQuizCommand;
+import be.unipartners.escqrs.cqrsquiz.commands.AddQuestionToQuizCommand;
+import be.unipartners.escqrs.cqrsquiz.commands.CancelQuizCommand;
+import be.unipartners.escqrs.cqrsquiz.commands.CreateQuizCommand;
+import be.unipartners.escqrs.cqrsquiz.commands.PublishQuizCommand;
 
 import java.util.ArrayList;
 import java.util.List;

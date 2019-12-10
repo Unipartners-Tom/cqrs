@@ -1,4 +1,4 @@
-package be.unipartners.escqrs.cqrsquiz.sagas;
+package be.unipartners.escqrs.cqrsquiz.commands;
 
 import java.util.UUID;
 

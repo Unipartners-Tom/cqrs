@@ -1,7 +1,7 @@
 package be.unipartners.escqrs;
 
+import be.unipartners.escqrs.cqrsquiz.commands.*;
 import be.unipartners.escqrs.cqrsquiz.events.*;
-import be.unipartners.escqrs.cqrsquiz.sagas.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

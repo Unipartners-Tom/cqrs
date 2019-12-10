@@ -1,4 +1,4 @@
-package be.unipartners.escqrs.cqrsquiz.sagas;
+package be.unipartners.escqrs.cqrsquiz.commands;
 
 import be.unipartners.escqrs.cqrsquiz.domain.Quiz;
 import be.unipartners.escqrs.cqrsquiz.domain.events.Event;

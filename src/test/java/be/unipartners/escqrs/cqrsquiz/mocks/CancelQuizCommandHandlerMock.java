@@ -2,9 +2,9 @@ package be.unipartners.escqrs.cqrsquiz.mocks;
 
 import be.unipartners.escqrs.cqrsquiz.events.InMemoryEventStoreImpl;
 import be.unipartners.escqrs.cqrsquiz.domain.events.QuizWasCancelledEvent;
-import be.unipartners.escqrs.cqrsquiz.sagas.CancelQuizCommand;
-import be.unipartners.escqrs.cqrsquiz.sagas.Command;
-import be.unipartners.escqrs.cqrsquiz.sagas.CommandHandler;
+import be.unipartners.escqrs.cqrsquiz.commands.CancelQuizCommand;
+import be.unipartners.escqrs.cqrsquiz.commands.Command;
+import be.unipartners.escqrs.cqrsquiz.commands.CommandHandler;
 
 import java.util.Collections;
 import java.util.HashSet;
